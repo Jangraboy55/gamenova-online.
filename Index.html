@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GameNova — Play Free Games Online</title>
+  <meta name="description" content="GameNova Online – Play free games anytime, anywhere. Fun for all ages!" />
+  <meta name="keywords" content="free games, online games, browser games, multiplayer games, play games" />
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/logo.png">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/logo.png" alt="GameNova logo" class="logo" onerror="this.style.display='none'">
+      <div>
+        <h1>GameNova</h1>
+        <p class="tag">Play free games — instant, mobile-first & multiplayer-ready</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <input id="search" type="search" placeholder="Search games..." aria-label="Search games">
+      <button id="themeToggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero card">
+      <h2>Play anywhere. Play anytime.</h2>
+      <p>Browse games, open demos inline, or open full-screen. Add game folders into <code>games/</code> to show them automatically.</p>
+    </section>
+
+    <section class="games-grid" id="gamesGrid" aria-live="polite">
+      <!-- populated by script.js -->
+    </section>
+
+    <section class="howto card">
+      <h3>Quick add</h3>
+      <p>To add a new game: create folder <code>games/yourgame/</code> and include an <code>index.html</code> plus a cover image <code>cover.png</code>. The site will list it automatically.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> GameNova — Play anywhere.</p>
+  </footer>
+
+  <!-- modal player -->
+  <div id="playModal" class="modal" aria-hidden="true">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <strong id="modalTitle">Play Game</strong>
+        <div>
+          <button id="openNewTab">Open in new tab</button>
+          <button id="closeModal" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <iframe id="gameFrame" src="" title="Game player" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+  </html>
