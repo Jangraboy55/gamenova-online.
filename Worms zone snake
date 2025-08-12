@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Worms Zone — Demo</title>
+<style>html,body{height:100%;margin:0;background:#061026;color:#fff;font-family:Inter,Arial}body{display:flex;align-items:center;justify-content:center}canvas{border-radius:8px;background:#00121b}</style>
+</head>
+<body>
+<canvas id="g" width="720" height="480"></canvas>
+<script>
+const c=document.getElementById('g'),ctx=c.getContext('2d');
+let px=360,py=240,dirX=16,dirY=0,tail=[{x:px,y:py}],food={x:Math.floor(Math.random()*40)*16,y:Math.floor(Math.random()*30)*16};
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowUp'&&dirY===0){dirX=0;dirY=-16}
+  if(e.key==='ArrowDown'&&dirY===0){dirX=0;dirY=16}
+  if(e.key==='ArrowLeft'&&dirX===0){dirX=-16;dirY=0}
+  if(e.key==='ArrowRight'&&dirX===0){dirX=16;dirY=0}
+});
+function loop(){
+  ctx.clearRect(0,0,c.width,c.height);
+  // move
+  px+=dirX; py+=dirY;
+  if(px<0)px=c.width-16; if(py<0)py=c.height-16; if(px>=c.width)px=0; if(py>=c.height)py=0;
+  tail.unshift({x:px,y:py}); while(tail.length>20) tail.pop();
+  // eat
+  if(px===food.x && py===food.y){ tail.push({}); food={x:Math.floor(Math.random()*40)*16,y:Math.floor(Math.random()*30)*16}; }
+  // draw food
+  ctx.fillStyle='#ff4444'; ctx.fillRect(food.x,food.y,16,16);
+  // draw tail
+  for(let i=0;i<tail.length;i++){ const t=tail[i]; ctx.fillStyle = `hsl(${(i*6)%360} 80% 50%)`; ctx.fillRect(t.x,t.y,16,16); }
+  // collision self check
+  for(let i=1;i<tail.length;i++){ if(tail[i].x===px && tail[i].y===py){ alert('Game over — refresh to try again'); tail=[{x:360,y:240}]; px=360;py=240; dirX=16;dirY=0; break; } }
+}
+setInterval(loop,100);
+</script>
+</body>
+</html>
